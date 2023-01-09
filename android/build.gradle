@@ -1,0 +1,73 @@
+group 'br.com.clearsale.liveness.flutter.liveness_flutter'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext.kotlin_version = '1.6.10'
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.1.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+file(System.properties['ENV_FILE']).readLines().each() {
+    def (key, value) = it.tokenize('=')
+    System.properties[key] = value
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url  System.properties['CS_LIVENESS_TEC_ARTIFACTS_FEED_URL']
+            name  System.properties['CS_LIVENESS_TEC_ARTIFACTS_FEED_NAME']
+            credentials {
+                username System.properties['CS_LIVINESS_TEC_USER']
+                password  System.properties['CS_LIVINESS_TEC_PASS']
+            }
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
+}
+
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 31
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        minSdkVersion 21
+    }
+}
+
+dependencies {
+    implementation("androidx.appcompat:appcompat:1.4.0") {
+        force = true
+    }
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation "sale.clear.studio:sdk-csliveness:$System.properties.CS_LIVENESS_VERSION"
+}

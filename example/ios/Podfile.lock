@@ -1,0 +1,62 @@
+PODS:
+  - Amplitude (8.10.2):
+    - AnalyticsConnector (~> 1.0.0)
+  - AnalyticsConnector (1.0.0)
+  - cs_liveness_flutter (1.0.0):
+    - CSLivenessSDK
+    - CSLivenessSDKTec
+    - Flutter
+  - CSLivenessSDK (1.0.0-hml):
+    - Amplitude (= 8.10.2)
+    - CSLivenessSDKTec (= 9.4.9)
+    - Sentry (= 7.15.0)
+  - CSLivenessSDKTec (9.4.9)
+  - Flutter (1.0.0)
+  - Sentry (7.15.0):
+    - Sentry/Core (= 7.15.0)
+  - Sentry/Core (7.15.0)
+
+DEPENDENCIES:
+  - cs_liveness_flutter (from `.symlinks/plugins/cs_liveness_flutter/ios`)
+  - "CSLivenessSDK (from `https://CS-Packages:s2w7zx2a7qy5kr2p4jtidx6p4ykgztiszaxlsghvfwgodeq5nvtq@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK`, tag `1.0.0-hml`)"
+  - "CSLivenessSDKTec (from `https://CS-Packages:s2w7zx2a7qy5kr2p4jtidx6p4ykgztiszaxlsghvfwgodeq5nvtq@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK`, tag `1.0.0-hml`)"
+  - Flutter (from `Flutter`)
+
+SPEC REPOS:
+  trunk:
+    - Amplitude
+    - AnalyticsConnector
+    - Sentry
+
+EXTERNAL SOURCES:
+  cs_liveness_flutter:
+    :path: ".symlinks/plugins/cs_liveness_flutter/ios"
+  CSLivenessSDK:
+    :git: "https://CS-Packages:s2w7zx2a7qy5kr2p4jtidx6p4ykgztiszaxlsghvfwgodeq5nvtq@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK"
+    :tag: 1.0.0-hml
+  CSLivenessSDKTec:
+    :git: "https://CS-Packages:s2w7zx2a7qy5kr2p4jtidx6p4ykgztiszaxlsghvfwgodeq5nvtq@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK"
+    :tag: 1.0.0-hml
+  Flutter:
+    :path: Flutter
+
+CHECKOUT OPTIONS:
+  CSLivenessSDK:
+    :git: "https://CS-Packages:s2w7zx2a7qy5kr2p4jtidx6p4ykgztiszaxlsghvfwgodeq5nvtq@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK"
+    :tag: 1.0.0-hml
+  CSLivenessSDKTec:
+    :git: "https://CS-Packages:s2w7zx2a7qy5kr2p4jtidx6p4ykgztiszaxlsghvfwgodeq5nvtq@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK"
+    :tag: 1.0.0-hml
+
+SPEC CHECKSUMS:
+  Amplitude: de83eb4d886a4905948baa9aad40f8cbb1fa54ee
+  AnalyticsConnector: 4c386d5972ac9da86e22d668564dbbac97558754
+  cs_liveness_flutter: 8c106c09089244a41e34d07fb88a99483b360db6
+  CSLivenessSDK: 8b0f494ea14a5e0774a53d866d73b35d11ae3bf4
+  CSLivenessSDKTec: 3e570aa8dda9ec7ea5c1289721f14dde508f889a
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  Sentry: 63ca44f5e0c8cea0ee5a07686b02e56104f41ef7
+
+PODFILE CHECKSUM: 86c50fb64bafeed0a5820ebf00e5b9b662277058
+
+COCOAPODS: 1.11.3
