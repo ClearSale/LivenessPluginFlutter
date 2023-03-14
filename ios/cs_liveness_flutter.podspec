@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'cs_liveness_flutter'
-  s.version          = '1.0.0'
+  s.version          = '1.1.0'
   s.summary          = 'Clearsale Liveness'
   s.description      = <<-DESC
   Clearsale Liveness.
@@ -16,8 +16,7 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
   s.platform = :ios, '12.4'
-  s.dependency "CSLivenessSDK"
-  s.dependency "CSLivenessSDKTec"
+  s.dependency 'CSLivenessSDK', '1.1.0'
   
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386 arm64'}
