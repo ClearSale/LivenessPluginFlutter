@@ -34,6 +34,7 @@ class CsLivenessFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, 
         const val livenessRecognition: String = "livenessRecognition"
         const val clientId: String = "clientId"
         const val clientSecret: String = "clientSecret"
+        const val vocalGuidance: Boolean = "vocalGuidance"
         const val cSLivenessError: String = "CSLivenss ERROR"
         const val error: String = "error"
         const val errorMessage: String = "USER CANCEL"
@@ -50,8 +51,9 @@ class CsLivenessFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, 
             if (call.method == livenessRecognition){
                 val clientID : String? = call.argument(clientId)
                 val clientSecret : String? = call.argument(clientSecret)
+                val vocalGuidance : Boolean? = call.argument(vocalGuidance)
                 pendingResult = result
-                livenessRecognition(clientID!!, clientSecret!!, result)
+                livenessRecognition(clientID!!, clientSecret!!, vocalGuidance!!, result)
             }
             else {
                 result.notImplemented()
@@ -64,9 +66,10 @@ class CsLivenessFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, 
         }
     }
 
-    fun livenessRecognition(@NonNull clientID: String, @NonNull clientSecret: String, @NonNull result: Result){
-        var mCSLiveness : CSLiveness = CSLiveness(clientID, clientSecret)
+    fun livenessRecognition(@NonNull clientID: String, @NonNull clientSecret: String, @NonNull vocalGuidance: Boolean ,@NonNull result: Result){
+        var mCSLiveness : CSLiveness = CSLiveness(clientID, clientSecret, vocalGuidance)
         var mIntent : Intent = Intent(act, CSLivenessActivity::class.java)
+        mIntent.putExtra("Hybrid","Flutter")
         mIntent.putExtra(CSLiveness.PARAMETER_NAME, mCSLiveness)
         act?.startActivityForResult(mIntent, REQUEST_CODE)
     }

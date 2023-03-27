@@ -1,7 +1,7 @@
 import Flutter
 import UIKit
 
-typealias CheckPluginResult = (clientId:String, clientSecret: String)
+typealias CheckPluginResult = (clientId: String, clientSecret: String, vocalGuidance: Bool)
 
 public class SwiftCsLivenessFlutterPlugin: NSObject, FlutterPlugin {
     private var livenessManager: CSLivenessManager?
@@ -14,7 +14,7 @@ public class SwiftCsLivenessFlutterPlugin: NSObject, FlutterPlugin {
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if let checkResult = checkPluginRequirements(call, result: result) {
-            livenessManager = CSLivenessManager(clientId: checkResult.clientId, clientSecret: checkResult.clientSecret, success: { success in
+            livenessManager = CSLivenessManager(clientId: checkResult.clientId, clientSecret: checkResult.clientSecret, vocalGuidance: checkResult.vocalGuidance, success: { success in
                 result(success)
             }, error: {error in
                 result(FlutterError.init(code: error, message: error, details: error))
@@ -26,10 +26,11 @@ public class SwiftCsLivenessFlutterPlugin: NSObject, FlutterPlugin {
 private func checkPluginRequirements(_ call: FlutterMethodCall, result: @escaping FlutterResult) -> CheckPluginResult? {
     if call.method == "livenessRecognition" {
         if let args = call.arguments as? Dictionary<String, Any>,
+           let vocalGuidance = args["vocalGuidance"] as? Bool,
            let clientId = args["clientId"] as? String,
            let clientSecret = args["clientSecret"] as? String {
 
-            return CheckPluginResult(clientId,clientSecret);
+            return CheckPluginResult(clientId,clientSecret,vocalGuidance);
         } else {
             result(FlutterError.init(code: "INVALID_ARGS", message: "Arguments are not valid.", details: "The following arguments, clientId or clientSecret aren't valid."))
         }

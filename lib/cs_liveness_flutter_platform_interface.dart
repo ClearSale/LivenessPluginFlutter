@@ -17,7 +17,7 @@ abstract class CsLivenessPlatform extends PlatformInterface {
   }
 
   Future<String?> livenessRecognition(
-      {required String clientId, required String clientSecret}) {
+      {required String clientId, required String clientSecret, required bool vocalGuidance}) {
     throw UnimplementedError('livenessRecognition() has not been implemented.');
   }
 }
