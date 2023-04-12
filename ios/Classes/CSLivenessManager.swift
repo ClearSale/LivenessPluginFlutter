@@ -23,7 +23,7 @@ class CSLivenessManager: NSObject {
                         configurations: CSLivenessConfigurations(
                             clientId: clientId as String,
                             clientSecret: clientSecret  as String
-                        ),
+                        )
                         vocalGuidance: vocalGuidance as Bool
                     )
                     let viewController = UIApplication.shared.keyWindow?.rootViewController
