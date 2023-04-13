@@ -37,7 +37,7 @@ class CsLiveness {
   /// bool? recognizedImage = _csLiveness.result?.real;
   ///
   /// ```
-  CsLiveness({required String clientId, required String clientSecret, required vocalGuidance}) {
+  CsLiveness({required String clientId, required String clientSecret, required bool vocalGuidance}) {
     _clientId = clientId;
     _clientSecret = clientSecret;
     _vocalGuidance = vocalGuidance;
