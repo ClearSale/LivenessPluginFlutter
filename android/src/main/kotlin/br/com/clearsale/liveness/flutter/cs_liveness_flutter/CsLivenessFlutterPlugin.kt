@@ -8,7 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 
-import com.clear.studio.csliveness.auth.view.CSLivenessActivity
+import com.clear.studio.csliveness.view.CSLivenessActivity
 import com.clear.studio.csliveness.core.CSLiveness
 import com.clear.studio.csliveness.core.CSLivenessResult
 
@@ -34,7 +34,7 @@ class CsLivenessFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, 
         const val livenessRecognition: String = "livenessRecognition"
         const val clientId: String = "clientId"
         const val clientSecret: String = "clientSecret"
-        const val vocalGuidance: Boolean = "vocalGuidance"
+        const val vocalGuidance: String = "vocalGuidance"
         const val cSLivenessError: String = "CSLivenss ERROR"
         const val error: String = "error"
         const val errorMessage: String = "USER CANCEL"
