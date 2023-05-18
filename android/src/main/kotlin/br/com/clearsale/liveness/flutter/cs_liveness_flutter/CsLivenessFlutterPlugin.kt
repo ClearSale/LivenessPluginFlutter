@@ -8,7 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 
-import com.clear.studio.csliveness.view.CSLivenessActivity
+import com.clear.studio.csliveness.auth.view.CSLivenessActivity
 import com.clear.studio.csliveness.core.CSLiveness
 import com.clear.studio.csliveness.core.CSLivenessResult
 
