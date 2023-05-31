@@ -20,10 +20,10 @@ class CSLivenessManager: NSObject {
         DispatchQueue.main.async {
             self.livenessSdk = CSLiveness(
                 configurations: CSLivenessConfigurations(
-                  clientId: self.clientId,
-                  clientSecret: self.clientSecret
+                  clientId: clientId,
+                  clientSecret: clientSecret
                 ),
-                vocalGuidance: self.vocalGuidance
+                vocalGuidance: vocalGuidance
             )
             self.livenessSdk.delegate = self
             self.livenessSdk.start(viewController: self, animated: true)
