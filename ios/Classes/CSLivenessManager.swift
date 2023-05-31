@@ -5,7 +5,7 @@ typealias CSLivenessError = ((String) -> Void)
 class CSLivenessManager: NSObject {
     let success: CSLivenessSuccess;
     let error: CSLivenessError;
-    private var livenessSdk: CSLiveness!
+    private var livenessSdk: CSLiveness?
     init(clientId: String, clientSecret: String, vocalGuidance: Bool,
                   success: @escaping CSLivenessSuccess,
                   error:@escaping  CSLivenessError) {
@@ -17,16 +17,22 @@ class CSLivenessManager: NSObject {
 
     private func start(clientId:String, clientSecret:String, vocalGuidance:Bool) {
         force(portrait: true)
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { in
             self.livenessSdk = CSLiveness(
                 configurations: CSLivenessConfigurations(
-                  clientId: clientId,
-                  clientSecret: clientSecret
+                    clientId: clientId as String,
+                    clientSecret: clientSecret  as String
                 ),
-                vocalGuidance: vocalGuidance
+                vocalGuidance: vocalGuidance as Bool
             )
-            self.livenessSdk.delegate = self
-            self.livenessSdk.start(viewController: self, animated: true)
+            let viewController = UIApplication.shared.keyWindow?.rootViewController
+            if let viewController = viewController {
+                self.livenessSdk?.delegate = self
+                self.livenessSdk?.start(viewController: viewController, animated: true);
+            } else {
+                //error
+                self.error("userCancel: ViewController not founded.")
+            }
         }
     }
 
@@ -35,7 +41,6 @@ class CSLivenessManager: NSObject {
             UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
         }
     }
-
 }
 
 // MARK: - CSLivenessDelegate
