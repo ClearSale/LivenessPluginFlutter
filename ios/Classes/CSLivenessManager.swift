@@ -21,7 +21,7 @@ class CSLivenessManager: NSObject {
             self.livenessSdk = CSLiveness(
                 configurations: CSLivenessConfigurations(
                   clientId: self.clientId,
-                  clientSecret: self.clientSecret,
+                  clientSecret: self.clientSecret
                 ),
                 vocalGuidance: self.vocalGuidance
             )
