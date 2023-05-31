@@ -16,7 +16,6 @@ class CSLivenessManager: NSObject {
     }
 
     private func start(clientId:String, clientSecret:String, vocalGuidance:Bool) {
-        force(portrait: true)
         DispatchQueue.main.async { in
             self.livenessSdk = CSLiveness(
                 configurations: CSLivenessConfigurations(
@@ -30,7 +29,6 @@ class CSLivenessManager: NSObject {
                 self.livenessSdk?.delegate = self
                 self.livenessSdk?.start(viewController: viewController, animated: true);
             } else {
-                //error
                 self.error("userCancel: ViewController not founded.")
             }
         }
