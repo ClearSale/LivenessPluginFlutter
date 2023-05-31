@@ -5,7 +5,7 @@ typealias CSLivenessError = ((String) -> Void)
 class CSLivenessManager: NSObject {
     let success: CSLivenessSuccess;
     let error: CSLivenessError;
-    private var livenessSdk: CSLiveness?
+    private var livenessSdk: CSLiveness!
     init(clientId: String, clientSecret: String, vocalGuidance: Bool,
                   success: @escaping CSLivenessSuccess,
                   error:@escaping  CSLivenessError) {
@@ -16,25 +16,25 @@ class CSLivenessManager: NSObject {
     }
 
     private func start(clientId:String, clientSecret:String, vocalGuidance:Bool) {
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 2 ){
-            DispatchQueue.main.async {[weak self] in
-                if let self = self {
-                    self.livenessSdk = CSLiveness(
-                        configurations: CSLivenessConfigurations(
-                            clientId: clientId as String,
-                            clientSecret: clientSecret  as String
-                        ),
-                        vocalGuidance: vocalGuidance as Bool
-                    )
-                    let viewController = UIApplication.shared.keyWindow?.rootViewController
-                    if let viewController = viewController {
-                        self.livenessSdk?.delegate = self
-                        self.livenessSdk?.start(viewController: viewController, animated: true);
-                    }else {
-                        //error
-                        self.error("userCancel: ViewController not founded.")
-                    }
-                }
+        force(portrait: true)
+        DispatchQueue.main.async {
+            self.livenessSdk = CSLiveness(
+                configurations: CSLivenessConfigurations(
+                  clientId: self.clientId,
+                  clientSecret: self.clientSecret,
+                ),
+                vocalGuidance: self.vocalGuidance
+            )
+            self.livenessSdk.delegate = self
+            self.livenessSdk.start(viewController: self, animated: true)
+        }
+    }
+
+    func force(portrait: Bool) {
+        DispatchQueue.main.async {
+            if let delegate = UIApplication.shared.delegate as? AppDelegate {
+                delegate.lockOrientationToPortrait = portrait
+                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
             }
         }
     }
