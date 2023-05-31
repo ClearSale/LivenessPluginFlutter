@@ -32,10 +32,7 @@ class CSLivenessManager: NSObject {
 
     func force(portrait: Bool) {
         DispatchQueue.main.async {
-            if let delegate = UIApplication.shared.delegate as? AppDelegate {
-                delegate.lockOrientationToPortrait = portrait
-                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-            }
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
         }
     }
 
