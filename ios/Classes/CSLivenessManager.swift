@@ -16,24 +16,22 @@ class CSLivenessManager: NSObject {
     }
 
     private func start(clientId:String, clientSecret:String, vocalGuidance:Bool) {
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 2 ){
-            DispatchQueue.main.async {[weak self] in
-                if let self = self {
-                    self.livenessSdk = CSLiveness(
-                        configurations: CSLivenessConfigurations(
-                            clientId: clientId as String,
-                            clientSecret: clientSecret  as String
-                        ),
-                        vocalGuidance: vocalGuidance as Bool
-                    )
-                    let viewController = UIApplication.shared.keyWindow?.rootViewController
-                    if let viewController = viewController {
-                        self.livenessSdk?.delegate = self
-                        self.livenessSdk?.start(viewController: viewController, animated: true);
-                    }else {
-                        //error
-                        self.error("userCancel: ViewController not founded.")
-                    }
+        DispatchQueue.main.async {[weak self] in
+            if let self = self {
+                self.livenessSdk = CSLiveness(
+                    configurations: CSLivenessConfigurations(
+                        clientId: clientId as String,
+                        clientSecret: clientSecret  as String
+                    ),
+                    vocalGuidance: vocalGuidance as Bool
+                )
+                let viewController = UIApplication.shared.keyWindow?.rootViewController
+                if let viewController = viewController {
+                    self.livenessSdk?.delegate = self
+                    self.livenessSdk?.start(viewController: viewController, animated: true);
+                }else {
+                    //error
+                    self.error("userCancel: ViewController not founded.")
                 }
             }
         }
