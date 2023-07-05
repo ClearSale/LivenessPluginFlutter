@@ -6,23 +6,25 @@ class CSLivenessManager: NSObject {
     let success: CSLivenessSuccess;
     let error: CSLivenessError;
     private var livenessSdk: CSLiveness?
-    init(clientId: String, clientSecret: String, vocalGuidance: Bool,
+    init(clientId: String, clientSecret: String, vocalGuidance: Bool, identifierId: String, cpf: String,
                   success: @escaping CSLivenessSuccess,
                   error:@escaping  CSLivenessError) {
         self.success = success
         self.error = error
         super.init()
-        self.start(clientId: clientId, clientSecret: clientSecret, vocalGuidance: vocalGuidance)
+        self.start(clientId: clientId, clientSecret: clientSecret, vocalGuidance: vocalGuidance, identifierId: identifierId, cpf: cpf)
     }
 
-    private func start(clientId:String, clientSecret:String, vocalGuidance:Bool) {
+    private func start(clientId:String, clientSecret:String, vocalGuidance:Bool, identifierId:String, cpf:String) {
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 2 ){
             DispatchQueue.main.async {[weak self] in
                 if let self = self {
                     self.livenessSdk = CSLiveness(
                         configurations: CSLivenessConfigurations(
                             clientId: clientId as String,
-                            clientSecret: clientSecret  as String
+                            clientSecret: clientSecret  as String,
+                            identifierId: identifierId as String,
+                            cpf: cpf as String
                         ),
                         vocalGuidance: vocalGuidance as Bool
                     )

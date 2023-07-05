@@ -17,6 +17,9 @@ class MockCsLivenessPlatform
   Future<String?> livenessRecognition({
     required String clientId,
     required String clientSecret,
+    required bool vocalGuidance,
+    String? cpf,
+    String? identifierId,
   }) =>
       Future.value(data);
 }
@@ -32,6 +35,9 @@ void main() {
     CsLiveness csLiveness = CsLiveness(
       clientId: "",
       clientSecret: "",
+      vocalGuidance: true,
+      identifierId: null,
+      cpf: null,
     );
     MockCsLivenessPlatform fakePlatform = MockCsLivenessPlatform();
     CsLivenessPlatform.instance = fakePlatform;

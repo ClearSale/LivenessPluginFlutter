@@ -26,7 +26,7 @@ void main() {
 
   test('livenessRecognition', () async {
     expect(
-      await platform.livenessRecognition(clientId: "", clientSecret: ""),
+      await platform.livenessRecognition(clientId: "", clientSecret: "", vocalGuidance: true),
       data,
     );
   });

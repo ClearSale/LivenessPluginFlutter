@@ -10,7 +10,7 @@ const String data =
     "{\"real\": \"Real\",\"sessionId\": \"123456\",\"image\": \"$base64ImageTest\"}";
 void main() {
   const MethodChannel channel = MethodChannel('cs_liveness_flutter');
-  CsLiveness csLiveness = CsLiveness(clientId: "", clientSecret: "");
+  CsLiveness csLiveness = CsLiveness(clientId: "", clientSecret: "", vocalGuidance: true);
 
   TestWidgetsFlutterBinding.ensureInitialized();
 

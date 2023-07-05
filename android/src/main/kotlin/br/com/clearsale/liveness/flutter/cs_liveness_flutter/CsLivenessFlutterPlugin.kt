@@ -39,6 +39,8 @@ class CsLivenessFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, 
         const val error: String = "error"
         const val errorMessage: String = "USER CANCEL"
         const val channelId: String = "cs_liveness_flutter"
+        const val identifierId: String = "identifierId"
+        const val cpf: String = "cpf"
     }
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -52,8 +54,12 @@ class CsLivenessFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, 
                 val clientID : String? = call.argument(clientId)
                 val clientSecret : String? = call.argument(clientSecret)
                 val vocalGuidance : Boolean? = call.argument(vocalGuidance)
+                val idetifierId : String = call.argument(identifierId)
+                val cpf : String = call.argument(cpf)
+
                 pendingResult = result
-                livenessRecognition(clientID!!, clientSecret!!, vocalGuidance!!, result)
+
+                livenessRecognition(clientID!!, clientSecret!!, vocalGuidance!!, idetifierId, cpf, result)
             }
             else {
                 result.notImplemented()
@@ -66,8 +72,8 @@ class CsLivenessFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, 
         }
     }
 
-    fun livenessRecognition(@NonNull clientID: String, @NonNull clientSecret: String, @NonNull vocalGuidance: Boolean ,@NonNull result: Result){
-        var mCSLiveness : CSLiveness = CSLiveness(clientID, clientSecret, vocalGuidance)
+    fun livenessRecognition(@NonNull clientID: String, @NonNull clientSecret: String, @NonNull vocalGuidance: Boolean, identifierId : String, cpf : String, @NonNull result: Result){
+        var mCSLiveness : CSLiveness = CSLiveness(clientID, clientSecret, vocalGuidance, identifierId, cpf)
         var mIntent : Intent = Intent(act, CSLivenessActivity::class.java)
         mIntent.putExtra("Hybrid","Flutter")
         mIntent.putExtra(CSLiveness.PARAMETER_NAME, mCSLiveness)

@@ -9,8 +9,8 @@ class MethodChannelCsLiveness extends CsLivenessPlatform {
 
   @override
   Future<String?> livenessRecognition(
-      {required String clientId, required String clientSecret, required bool vocalGuidance}) async {
+      {required String clientId, required String clientSecret, required bool vocalGuidance, String? identifierId, String? cpf}) async {
     return await methodChannel.invokeMethod<String>('livenessRecognition',
-        {"clientId": clientId, "clientSecret": clientSecret, "vocalGuidance": vocalGuidance});
+        {"clientId": clientId, "clientSecret": clientSecret, "vocalGuidance": vocalGuidance, "identifierId": identifierId, "cpf": cpf});
   }
 }
