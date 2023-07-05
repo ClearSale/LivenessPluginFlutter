@@ -1,7 +1,7 @@
 # CS Livness Flutter Plugin
 ## Instruções de uso
 
-Adicione um arquivo `.env.gradle` que contenha as seguintes variávies:
+Adicione um arquivo `.gradle.env` que contenha as seguintes variávies:
 
 ```
 CS_LIVENESS_TEC_ARTIFACTS_FEED_URL=ARTIFACTS_FEED_URL // valor fornecido pela clear sale
