@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:amplitude_flutter/amplitude.dart';
 import 'package:cs_liveness_flutter/cs_liveness_exceptions.dart';
 import 'package:cs_liveness_flutter/cs_liveness_flutter_platform_interface.dart';
 import 'package:cs_liveness_flutter/cs_liveness_result.dart';
@@ -11,6 +12,7 @@ class CsLiveness {
   late final String _clientSecret;
   late final String _cpf;
   late final String _identifierId;
+  String? _analyticsKey;
   late final bool _vocalGuidance;
 
   static const String _defaultError = "Não foi possível carregar a imagem.";
@@ -55,7 +57,23 @@ class CsLiveness {
     }else {
       _identifierId = "";
     }
+  }
 
+  String get amplitudeKey => _analyticsKey as String;
+
+  set analyticsKey(String key) {
+    _analyticsKey = key;
+  }
+
+  Future<void> _initAmplitude(String key) async {
+    final Amplitude analytics = Amplitude.getInstance();
+    await analytics.init(key);
+
+    await analytics.getDeviceId().then((value) {
+      print(value);
+    }).catchError((error) {
+      print(error);
+    });
   }
 
   /// ### Método para execucão do SDK
@@ -91,12 +109,23 @@ class CsLiveness {
   ///
   Future<CsLivenessResult> start() async {
     try {
+      if(_analyticsKey != null) {
+        await _initAmplitude(_analyticsKey as String);
+
+        Map<String, dynamic> myEventProperties = {
+          "entity" : _clientId,
+          "opentype" : "flutter",
+        };
+
+        Amplitude.getInstance().logEvent('liveness.sdk.framework.open', eventProperties: myEventProperties);
+      }
+
       String? data = await CsLivenessPlatform.instance.livenessRecognition(
-        clientId: _clientId,
-        clientSecret: _clientSecret,
-        vocalGuidance: _vocalGuidance,
-        identifierId: _identifierId,
-        cpf: _cpf
+          clientId: _clientId,
+          clientSecret: _clientSecret,
+          vocalGuidance: _vocalGuidance,
+          identifierId: _identifierId,
+          cpf: _cpf
       );
       if (data != null && data.isNotEmpty) {
         final decodedData = json.decode(data);
