@@ -68,12 +68,6 @@ class CsLiveness {
   Future<void> _initAmplitude(String key) async {
     final Amplitude analytics = Amplitude.getInstance();
     await analytics.init(key);
-
-    await analytics.getDeviceId().then((value) {
-      print(value);
-    }).catchError((error) {
-      print(error);
-    });
   }
 
   /// ### Método para execucão do SDK
