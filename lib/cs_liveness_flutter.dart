@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cs_liveness_flutter/cs_liveness_config.dart';
+import 'package:cs_liveness_flutter/cs_liveness_config_colors.dart';
 import 'package:cs_liveness_flutter/cs_liveness_exceptions.dart';
 import 'package:cs_liveness_flutter/cs_liveness_flutter_platform_interface.dart';
 import 'package:cs_liveness_flutter/cs_liveness_result.dart';
@@ -9,7 +11,9 @@ import 'package:flutter/services.dart';
 class CsLiveness {
   late final String _clientId;
   late final String _clientSecret;
-  late final bool _vocalGuidance;
+  late final String? _identifierId;
+  late final String? _cpf;
+  late final CsLivenessConfig? _config;
 
   static const String _defaultError = "Não foi possível carregar a imagem.";
   static const String _authError = "AuthError";
@@ -37,10 +41,12 @@ class CsLiveness {
   /// bool? recognizedImage = _csLiveness.result?.real;
   ///
   /// ```
-  CsLiveness({required String clientId, required String clientSecret, required bool vocalGuidance}) {
+  CsLiveness({required String clientId, required String clientSecret, String? identifierId, String? cpf, CsLivenessConfig? config}) {
     _clientId = clientId;
     _clientSecret = clientSecret;
-    _vocalGuidance = vocalGuidance;
+    _identifierId = identifierId;
+    _cpf = cpf;
+    _config = config;
   }
 
   /// ### Método para execucão do SDK
@@ -79,7 +85,9 @@ class CsLiveness {
       String? data = await CsLivenessPlatform.instance.livenessRecognition(
         clientId: _clientId,
         clientSecret: _clientSecret,
-        vocalGuidance: _vocalGuidance
+        identifierId: _identifierId,
+        cpf: _cpf,
+        config: jsonEncode(_config)
       );
       if (data != null && data.isNotEmpty) {
         final decodedData = json.decode(data);
