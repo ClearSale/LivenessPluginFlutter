@@ -13,6 +13,6 @@ class CsLivenessConfigColors {
       'primary': primary != null ? "#${primary?.value.toRadixString(16)}" : null,
       'secondary': secondary != null ? "#${secondary?.value.toRadixString(16)}" : null,
       'title': title != null ? "#${title?.value.toRadixString(16)}" : null,
-      'paragraph': paragraph != null ? "#${primary?.value.toRadixString(16)}" : null
+      'paragraph': paragraph != null ? "#${paragraph?.value.toRadixString(16)}" : null
      };
 }

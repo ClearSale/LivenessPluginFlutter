@@ -1,10 +1,11 @@
 import CSLivenessSDK
+import Foundation
 
 typealias CSLivenessSuccess = ((String) -> Void)
 typealias CSLivenessError = ((String) -> Void)
 class CSLivenessManager: NSObject {
-    let success: CSLivenessSuccess;
-    let error: CSLivenessError;
+    let success: CSLivenessSuccess
+    let error: CSLivenessError
     private var livenessSdk: CSLiveness?
     init(clientId: String, clientSecret: String, identifierId: String?, cpf: String?, config: String?,
                   success: @escaping CSLivenessSuccess,
@@ -18,27 +19,25 @@ class CSLivenessManager: NSObject {
     private func start(clientId:String, clientSecret:String, identifierId:String?, cpf:String?, config:String?) {
         let decoder = JSONDecoder()
         var configuration: Config?
+        var csColors: CSLivenessColorsConfig?
 
-        var csColors: CSLivenessColorsConfig? = nil
+        if let c = config {
+            do{
+                if let cData: Data = c.data(using: .utf8) {
+                    configuration = try decoder.decode(Config.self, from: cData)
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
         if let colors = configuration?.colors as? Colors{
             csColors = CSLivenessColorsConfig(
                 primaryColor: UIColor(colors.primary ?? ""),
                 secondaryColor: UIColor(colors.secondary ?? ""),
                 titleColor: UIColor(colors.title ?? ""),
                 paragraphColor: UIColor(colors.paragraph ?? "")
-            );
-        }
-
-        if let c: String = config as? String {
-            do{
-                if let cData: Data = c.data(using: .utf8) as? Data {
-                    let conf: [Config] = try decoder.decode([Config].self, from: cData)
-                    if(conf.count > 0){
-                        configuration = conf[0];
-                    }
-                }
-            }
-            catch{print(error.localizedDescription)}
+            )
         }
         
         let csConfig: CSLivenessConfig = CSLivenessConfig(
@@ -46,7 +45,7 @@ class CSLivenessManager: NSObject {
                         clientSecret: clientSecret,
                         identifierId: identifierId,
                         cpf: cpf,
-                        colors: csColors);
+                        colors: csColors)
         
         self.livenessSdk = CSLiveness(
             configuration: csConfig,
@@ -55,9 +54,8 @@ class CSLivenessManager: NSObject {
         let viewController = UIApplication.shared.keyWindow?.rootViewController
         if let viewController = viewController {
             self.livenessSdk?.delegate = self
-            self.livenessSdk?.start(viewController: viewController, animated: true);
-        }else {
-            //error
+            self.livenessSdk?.start(viewController: viewController, animated: true)
+        } else {
             self.error("userCancel: ViewController not founded.")
         }
     }

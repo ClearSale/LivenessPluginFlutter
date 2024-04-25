@@ -24,7 +24,7 @@ class LivenessActionsWidget extends StatelessWidget {
           ),
         ),
         ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(primary: Colors.red[900]),
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.red[900]),
           onPressed: () {
             _livenessStore.clean();
           },

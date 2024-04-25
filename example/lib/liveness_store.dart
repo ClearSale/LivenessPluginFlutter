@@ -9,7 +9,7 @@ class LivenessStore extends ValueNotifier<LivenessState> {
   static const String clientSecret = "";
   static const String identifierId = "";
   static const String cpf = "";
-  static CsLivenessConfigColors colors = CsLivenessConfigColors(primary: Color(0xffaabbFF), secondary: Color(0xffffff00));
+  static CsLivenessConfigColors colors = CsLivenessConfigColors(primary: Color(0xFFFF4800), secondary: Color(0xFFFF4800), title: Color(0xFF283785), paragraph: Color(0xFF353840));
   static CsLivenessConfig config = CsLivenessConfig(vocalGuidance: true, colors: colors);
 
   final _csLiveness = CsLiveness(
