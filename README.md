@@ -43,31 +43,24 @@ allprojects {
 }
 ```
 
-
 ## Para uso do plugin
 
-Existem 2 métodos Future na classe `CsLivenessFlutter`:
-
-`livenessRecognition`: retorna uma String base64
+Para inicializar o sdk, crie uma instância da classe `CsLiveness`, passando as credenciais de acesso que foram recebidas pela ClearSale, IdentifierId, cpf do usuário e configurações (OPCIONAL):
 
 Ex.: 
 ```
-final CsLivenessFlutter _csLivenessFlutterPlugin = CsLivenessFlutter();
-String? base64Image = _csLivenessFlutterPlugin.livenessRecognition(
-    clientId: "CLIENT_ID",
-    clientSecret: "CLIENT_SECRET",
-);
+final _csLiveness = CsLiveness(
+    clientId: clientId,
+    clientSecret: clientSecret,
+    identifierId: identifierId,
+    cpf: cpf,
+    config: config
+  );
 ```
 
-`livenessRecognitionImage`: retorna uma imagem do Flutter.
+Existe um método Future chamado `start`que retorna um tipo `CsLivenessResult`, use-o para inicializar o SDK:
 
 Ex.: 
 ```
-final CsLivenessFlutter _csLivenessFlutterPlugin = CsLivenessFlutter();
-Image reconizedImage = _csLivenessFlutterPlugin.livenessRecognitionImage(
-    clientId: "CLIENT_ID",
-    clientSecret: "CLIENT_SECRET",
-);
+final result = await _csLiveness.start();
 ```
-
-Para os dois métodos, os parâmetros clientId e clientSecret são obrigatórios e devem ser fornecidos pela ClearSale.
