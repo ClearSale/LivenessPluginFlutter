@@ -30,6 +30,8 @@ class _MyAppState extends State<MyApp> {
   Color titleColor = const Color(0xFF283785);
   Color paragraphColor = const Color(0xFF353840);
 
+  bool vocalGuidance = false;
+
   @override
   void initState() {
     super.initState();
@@ -41,6 +43,7 @@ class _MyAppState extends State<MyApp> {
       String clientSecretId,
       String identifierId,
       String cpf,
+      bool vocalGuidance,
       Color primaryColor,
       Color secondaryColor,
       Color titleColor,
@@ -56,6 +59,7 @@ class _MyAppState extends State<MyApp> {
           clientSecretId,
           identifierId,
           cpf,
+          vocalGuidance,
           primaryColor,
           secondaryColor,
           titleColor,
@@ -151,6 +155,17 @@ class _MyAppState extends State<MyApp> {
                                 filter: {"#": RegExp(r'[0-9]')},
                                 type: MaskAutoCompletionType.lazy)
                           ],
+                        ),
+                        const SizedBox(height: 20),
+                        CheckboxListTile(
+                          title: const Text("Vocal Guidance"),
+                          value: vocalGuidance,
+                          onChanged: (bool? newValue) {
+                            setState(() {
+                              vocalGuidance = newValue == true;
+                            });
+                          },
+                          controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
                         ),
                         const SizedBox(height: 20),
                         Row(
@@ -331,6 +346,7 @@ class _MyAppState extends State<MyApp> {
                                     _formValues["clientSecretId"],
                                     _formValues["identifierId"],
                                     _formValues["cpf"],
+                                    vocalGuidance,
                                     primaryColor,
                                     secondaryColor,
                                     titleColor,
