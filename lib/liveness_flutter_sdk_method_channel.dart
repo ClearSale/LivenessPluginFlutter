@@ -22,11 +22,12 @@ class MethodChannelLivenessFlutterSdk extends LivenessFlutterSdkPlatform {
       Color secondaryColor,
       Color titleColor,
       Color paragraphColor) async {
-    final Map<dynamic, dynamic>? response =
-    await methodChannel.invokeMapMethod('openCSLiveness', {
+    final Map<String, dynamic>? response =
+        await methodChannel.invokeMapMethod('openCSLiveness', {
       "clientId": clientId,
       "clientSecretId": clientSecretId,
-      "identifierId": identifierId != null && identifierId.isNotEmpty ? identifierId : null,
+      "identifierId":
+          identifierId != null && identifierId.isNotEmpty ? identifierId : null,
       "cpf": cpf != null && cpf.isNotEmpty ? cpf : null,
       "vocalGuidance": vocalGuidance == true,
       "primaryColor": primaryColor.toHexString(),
@@ -37,7 +38,7 @@ class MethodChannelLivenessFlutterSdk extends LivenessFlutterSdkPlatform {
 
     if (response != null) {
       return CSLivenessResult.fromJson(
-          response.cast() as Map<String, dynamic>);
+          response.cast().map((k, v) => MapEntry(k.toString(), v)));
     }
 
     throw "No response from native side";

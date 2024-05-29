@@ -27,6 +27,7 @@ public class LivenessFlutterSdkPlugin: NSObject, FlutterPlugin {
     
     private let LOG_TAG = "[CSLivenessFlutter]"
     private var flutterResult: FlutterResult?;
+    private var sdk: CSLiveness?;
     
     private func resetFlutterResult() -> Void {
         self.flutterResult = nil
@@ -88,9 +89,9 @@ public class LivenessFlutterSdkPlugin: NSObject, FlutterPlugin {
                 let livenessConfiguration = CSLivenessConfig(clientId: clientId, clientSecret: clientSecretId, identifierId: "", cpf: "", colors: CSLivenessColorsConfig(primaryColor: primaryColor, secondaryColor: secondaryColor, titleColor: titleColor, paragraphColor: paragraphColor))
                 
                 if let viewController = UIApplication.shared.keyWindow?.rootViewController {
-                    let sdk = CSLiveness(configuration: livenessConfiguration, vocalGuidance: vocalGuidance)
-                    sdk?.delegate = self
-                    sdk?.start(viewController: viewController, animated: true)
+                    self.sdk = CSLiveness(configuration: livenessConfiguration, vocalGuidance: vocalGuidance)
+                    self.sdk?.delegate = self
+                    self.sdk?.start(viewController: viewController, animated: true)
                 } else {
                     resultParam(FlutterError(code: "ViewControllerMissing", message: "Unable to find view controller", details: nil))
                 }

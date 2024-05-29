@@ -10,7 +10,8 @@ abstract class LivenessFlutterSdkPlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static LivenessFlutterSdkPlatform _instance = MethodChannelLivenessFlutterSdk();
+  static LivenessFlutterSdkPlatform _instance =
+      MethodChannelLivenessFlutterSdk();
 
   /// The default instance of [LivenessFlutterSdkPlatform] to use.
   ///
@@ -35,7 +36,6 @@ abstract class LivenessFlutterSdkPlatform extends PlatformInterface {
       Color secondaryColor,
       Color titleColor,
       Color paragraphColor) {
-    throw UnimplementedError(
-        'openCSLiveness() has not been implemented.');
+    throw UnimplementedError('openCSLiveness() has not been implemented.');
   }
 }
