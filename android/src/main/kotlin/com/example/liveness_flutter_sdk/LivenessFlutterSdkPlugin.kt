@@ -154,7 +154,13 @@ class LivenessFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware
 
                 Log.d(logTag, "Result: $responseMap")
 
-                flutterResult!!.success(responseMap);
+                if (responseMap["real"] != true) {
+                    val responseMessage: String? = responseMap["responseMessage"] as? String
+
+                    throw Exception(responseMessage ?: "UnknownInternalError")
+                } else {
+                    flutterResult!!.success(responseMap)
+                }
             } catch (t: Throwable) {
                 Log.e(logTag, t.message ?: "An error occurred")
 
