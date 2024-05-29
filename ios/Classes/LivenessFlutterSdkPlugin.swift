@@ -82,15 +82,15 @@ public class LivenessFlutterSdkPlugin: NSObject, FlutterPlugin {
                 let titleColor = sdkParams["titleColor"] != nil ? UIColor(sdkParams["titleColor"] as! String) : nil;
                 let paragraphColor = sdkParams["paragraphColor"] != nil ? UIColor(sdkParams["paragraphColor"] as! String) : nil;
                 
-                let identifierId = sdkParams["identifierId"] as? String
-                let cpf = sdkParams["cpf"] as? String
+                let identifierId = sdkParams["identifierId"] as? String ?? ""
+                let cpf = sdkParams["cpf"] as? String ?? ""
                 
-                let livenessConfiguration = CSLivenessConfig(clientId: clientId, clientSecret: clientSecretId, identifierId: identifierId, cpf: cpf, colors: CSLivenessColorsConfig(primaryColor: primaryColor, secondaryColor: secondaryColor, titleColor: titleColor, paragraphColor: paragraphColor))
+                let livenessConfiguration = CSLivenessConfig(clientId: clientId, clientSecret: clientSecretId, identifierId: "", cpf: "", colors: CSLivenessColorsConfig(primaryColor: primaryColor, secondaryColor: secondaryColor, titleColor: titleColor, paragraphColor: paragraphColor))
                 
                 if let viewController = UIApplication.shared.keyWindow?.rootViewController {
                     let sdk = CSLiveness(configuration: livenessConfiguration, vocalGuidance: vocalGuidance)
-                    sdk.delegate = self
-                    sdk.start(viewController: viewController, animated: true)
+                    sdk?.delegate = self
+                    sdk?.start(viewController: viewController, animated: true)
                 } else {
                     resultParam(FlutterError(code: "ViewControllerMissing", message: "Unable to find view controller", details: nil))
                 }
