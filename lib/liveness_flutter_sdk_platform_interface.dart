@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+import 'package:liveness_flutter_sdk/liveness_flutter_sdk_data.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'liveness_flutter_sdk_method_channel.dart';
@@ -23,7 +25,16 @@ abstract class LivenessFlutterSdkPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+  Future<CSLivenessResult> openCSLiveness(
+      String clientId,
+      String clientSecretId,
+      String identifierId,
+      String cpf,
+      Color primaryColor,
+      Color secondaryColor,
+      Color titleColor,
+      Color paragraphColor) {
+    throw UnimplementedError(
+        'openCSLiveness() has not been implemented.');
   }
 }
