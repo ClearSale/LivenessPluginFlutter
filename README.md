@@ -64,7 +64,6 @@ Future<void> callCSLivenessSDK(
   // Platform messages may fail, so we use a try/catch PlatformException.
   // We also handle the message potentially returning null.
   String result;
-  primaryColor.toHexString();
   try {
     var sdkResponse =
     await _livenessFlutterSdkPlugin.openCSLiveness(
