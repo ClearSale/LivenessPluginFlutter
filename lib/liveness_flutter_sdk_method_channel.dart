@@ -30,10 +30,10 @@ class MethodChannelLivenessFlutterSdk extends LivenessFlutterSdkPlatform {
           identifierId != null && identifierId.isNotEmpty ? identifierId : null,
       "cpf": cpf != null && cpf.isNotEmpty ? cpf : null,
       "vocalGuidance": vocalGuidance == true,
-      "primaryColor": primaryColor.toHexString(),
-      "secondaryColor": secondaryColor.toHexString(),
-      "titleColor": titleColor.toHexString(),
-      "paragraphColor": paragraphColor.toHexString()
+      "primaryColor": primaryColor.toHexString(enableAlpha: false),
+      "secondaryColor": secondaryColor.toHexString(enableAlpha: false),
+      "titleColor": titleColor.toHexString(enableAlpha: false),
+      "paragraphColor": paragraphColor.toHexString(enableAlpha: false)
     });
 
     if (response != null) {
