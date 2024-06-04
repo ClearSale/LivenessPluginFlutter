@@ -88,7 +88,7 @@ class _MyAppState extends State<MyApp> {
       home: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('CSLivenessCopy'),
+            title: const Text('CSLiveness'),
           ),
           body: Center(
             child: Padding(
