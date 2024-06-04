@@ -18,7 +18,7 @@ String _colorToHex(
 
 extension ColorExtension on Color {
   String toHexString(
-          {bool includeHashSign = false,
+          {bool includeHashSign = true,
           bool enableAlpha = true,
           bool toUpperCase = true}) =>
       _colorToHex(this,
