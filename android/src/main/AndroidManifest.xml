@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.example.liveness_flutter_sdk">
+  package="com.clear.liveness_flutter_sdk_example">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-feature android:name="android.hardware.camera" />
     <uses-permission android:name="android.permission.CAMERA" />
