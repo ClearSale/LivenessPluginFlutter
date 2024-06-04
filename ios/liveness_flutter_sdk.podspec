@@ -7,11 +7,11 @@ Pod::Spec.new do |s|
   s.version          = '1.0.0'
   s.summary          = 'CSLiveness Flutter SDK'
   s.description      = <<-DESC
-A new Flutter plugin project.
+ClearSale Liveness Flutter SDK
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://devs.plataformadatatrust.clearsale.com.br/docs/sdk-flutter'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'ClearSale' => 'matheus.castro-ext@clear.sale' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
