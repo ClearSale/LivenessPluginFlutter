@@ -75,18 +75,17 @@ public class LivenessFlutterSdkPlugin: NSObject, FlutterPlugin {
         if let clientId = sdkParams["clientId"] as? String, let clientSecretId = sdkParams["clientSecretId"] as? String, let vocalGuidance = sdkParams["vocalGuidance"] as? Bool {
             
             self.flutterResult = resultParam
-            
+
+            let primaryColor = sdkParams["primaryColor"] != nil ? UIColor(sdkParams["primaryColor"] as! String) : nil;
+            let secondaryColor = sdkParams["secondaryColor"] != nil ? UIColor(sdkParams["secondaryColor"] as! String) : nil;
+            let titleColor = sdkParams["titleColor"] != nil ? UIColor(sdkParams["titleColor"] as! String) : nil;
+            let paragraphColor = sdkParams["paragraphColor"] != nil ? UIColor(sdkParams["paragraphColor"] as! String) : nil;
+
+            let identifierId = sdkParams["identifierId"] as? String ?? ""
+            let cpf = sdkParams["cpf"] as? String ?? ""
+
             DispatchQueue.main.async {
-                let primaryColor = sdkParams["primaryColor"] != nil ? UIColor(sdkParams["primaryColor"] as! String) : nil;
-                let secondaryColor = sdkParams["secondaryColor"] != nil ? UIColor(sdkParams["secondaryColor"] as! String) : nil;
-                let tertiaryColor = sdkParams["tertiaryColor"] != nil ? UIColor(sdkParams["tertiaryColor"] as! String) : nil;
-                let titleColor = sdkParams["titleColor"] != nil ? UIColor(sdkParams["titleColor"] as! String) : nil;
-                let paragraphColor = sdkParams["paragraphColor"] != nil ? UIColor(sdkParams["paragraphColor"] as! String) : nil;
-                
-                let identifierId = sdkParams["identifierId"] as? String ?? ""
-                let cpf = sdkParams["cpf"] as? String ?? ""
-                
-                let livenessConfiguration = CSLivenessConfig(clientId: clientId, clientSecret: clientSecretId, identifierId: "", cpf: "", colors: CSLivenessColorsConfig(primaryColor: primaryColor, secondaryColor: secondaryColor, titleColor: titleColor, paragraphColor: paragraphColor))
+                let livenessConfiguration = CSLivenessConfig(clientId: clientId, clientSecret: clientSecretId, identifierId: identifierId, cpf: cpf, colors: CSLivenessColorsConfig(primaryColor: primaryColor, secondaryColor: secondaryColor, titleColor: titleColor, paragraphColor: paragraphColor))
                 
                 if let viewController = UIApplication.shared.keyWindow?.rootViewController {
                     self.sdk = CSLiveness(configuration: livenessConfiguration, vocalGuidance: vocalGuidance)
