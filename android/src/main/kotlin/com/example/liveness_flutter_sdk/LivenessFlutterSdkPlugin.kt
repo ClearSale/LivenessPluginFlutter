@@ -74,7 +74,7 @@ class LivenessFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware
     }
 
     private fun resetResult() {
-        flutterResult = null;
+        flutterResult = null
     }
 
     private fun openCSLiveness(call: MethodCall, result: Result) {
@@ -82,11 +82,11 @@ class LivenessFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware
             // Means that we are already running and somehow the button got triggered again.
             // In this case just return.
 
-            return;
+            return
         }
 
         try {
-            flutterResult = result;
+            flutterResult = result
 
             val clientId = call.argument<String>("clientId")
             val clientSecretId = call.argument<String>("clientSecretId")
@@ -147,7 +147,7 @@ class LivenessFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware
                 val csLivenessResult =
                     data.getSerializableExtra(parameterName) as CSLivenessResult
 
-                responseMap["real"] = csLivenessResult.responseMessage.compareTo("real", true) == 0;
+                responseMap["real"] = csLivenessResult.responseMessage.compareTo("real", true) == 0
                 responseMap["responseMessage"] = csLivenessResult.responseMessage
                 responseMap["sessionId"] = csLivenessResult.sessionId
                 responseMap["image"] = csLivenessResult.image
