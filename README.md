@@ -52,10 +52,8 @@ Caso o `future` seja rejeitado, ela retorna o erro que causou a rejeição (`CSL
 ```dart
 // Platform messages are asynchronous, so we initialize in an async method.
 Future<void> callCSLivenessSDK(
-    String clientId,
-    String clientSecretId,
-    String identifierId,
-    String cpf,
+    String accessToken,
+    String transactionId,
     bool vocalGuidance,
     Color primaryColor,
     Color secondaryColor,
@@ -67,10 +65,8 @@ Future<void> callCSLivenessSDK(
   try {
     var sdkResponse =
     await _livenessFlutterSdkPlugin.openCSLiveness(
-        clientId,
-        clientSecretId,
-        identifierId,
-        cpf,
+        accessToken,
+        transactionId,
         vocalGuidance,
         primaryColor,
         secondaryColor,
@@ -94,6 +90,11 @@ Future<void> callCSLivenessSDK(
   });
 }
 ```
+
+### Como obter o accessToken e transactionId?
+- `accessToken`: Faça a autenticação seguindo as instruções da [API DataTrust](https://devs.plataformadatatrust.clearsale.com.br/reference/post_v1-authentication) e obtenha o `token` do retorno.
+- `transactionId`: Crie uma transação seguindo as instruções da [API DataTrust](https://devs.plataformadatatrust.clearsale.com.br/reference/post_v1-transaction) e obtenha o `id` do retorno.
+
 
 ## Executando o aplicativo de exemplo
 

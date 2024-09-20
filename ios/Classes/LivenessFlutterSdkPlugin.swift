@@ -44,8 +44,10 @@ public class LivenessFlutterSdkPlugin: NSObject, FlutterPlugin {
         case "openCSLiveness":
             if let arguments = call.arguments as? [String:Any] {
                 let sdkParams: NSDictionary = [
-                    "clientId": arguments["clientId"] as! String,
-                    "clientSecretId": arguments["clientSecretId"] as! String,
+                    "accessToken": arguments["accessToken"] as? String,
+                    "transactionId": arguments["transactionId"] as? String,
+                    "clientId": arguments["clientId"] as? String,
+                    "clientSecretId": arguments["clientSecretId"] as? String,
                     "identifierId": arguments["identifierId"] as? String,
                     "cpf": arguments["cpf"] as? String,
                     "vocalGuidance": arguments["vocalGuidance"] as! Bool,
@@ -72,35 +74,57 @@ public class LivenessFlutterSdkPlugin: NSObject, FlutterPlugin {
             return
         }
         
-        if let clientId = sdkParams["clientId"] as? String, let clientSecretId = sdkParams["clientSecretId"] as? String, let vocalGuidance = sdkParams["vocalGuidance"] as? Bool {
-            
-            self.flutterResult = resultParam
+        let accessToken = sdkParams["accessToken"] as? String
+        let transactionId = sdkParams["transactionId"] as? String
+        
+        let clientId = sdkParams["clientId"] as? String
+        let clientSecretId = sdkParams["clientSecretId"] as? String
+        let identifierId = sdkParams["identifierId"] as? String ?? ""
+        let cpf = sdkParams["cpf"] as? String ?? ""
+        
+        
+        let vocalGuidance = sdkParams["vocalGuidance"] as? Bool ?? false
+        
+        // Colors configuration
+        let primaryColor = sdkParams["primaryColor"] != nil ? UIColor(sdkParams["primaryColor"] as! String) : nil;
+        let secondaryColor = sdkParams["secondaryColor"] != nil ? UIColor(sdkParams["secondaryColor"] as! String) : nil;
+        let titleColor = sdkParams["titleColor"] != nil ? UIColor(sdkParams["titleColor"] as! String) : nil;
+        let paragraphColor = sdkParams["paragraphColor"] != nil ? UIColor(sdkParams["paragraphColor"] as! String) : nil;
+        
+        let colorsConfiguration = CSLivenessColorsConfig(primaryColor: primaryColor, secondaryColor: secondaryColor, titleColor: titleColor, paragraphColor: paragraphColor)
+        
+        
+        self.flutterResult = resultParam
 
-            let primaryColor = sdkParams["primaryColor"] != nil ? UIColor(sdkParams["primaryColor"] as! String) : nil;
-            let secondaryColor = sdkParams["secondaryColor"] != nil ? UIColor(sdkParams["secondaryColor"] as! String) : nil;
-            let titleColor = sdkParams["titleColor"] != nil ? UIColor(sdkParams["titleColor"] as! String) : nil;
-            let paragraphColor = sdkParams["paragraphColor"] != nil ? UIColor(sdkParams["paragraphColor"] as! String) : nil;
-
-            let identifierId = sdkParams["identifierId"] as? String ?? ""
-            let cpf = sdkParams["cpf"] as? String ?? ""
-
-            DispatchQueue.main.async {
-                let livenessConfiguration = CSLivenessConfig(clientId: clientId, clientSecret: clientSecretId, identifierId: identifierId, cpf: cpf, colors: CSLivenessColorsConfig(primaryColor: primaryColor, secondaryColor: secondaryColor, titleColor: titleColor, paragraphColor: paragraphColor))
-                
-                if let viewController = UIApplication.shared.keyWindow?.rootViewController {
-                    self.sdk = CSLiveness(configuration: livenessConfiguration, vocalGuidance: vocalGuidance)
-                    self.sdk?.delegate = self
-                    self.sdk?.start(viewController: viewController, animated: true)
-                } else {
-                    resultParam(FlutterError(code: "ViewControllerMissing", message: "Unable to find view controller", details: nil))
-                }
-            }
+        if accessToken != nil && transactionId != nil {
+            self.sdk = CSLiveness(configuration: CSLivenessConfig(accessToken: accessToken!, transactionId: transactionId!, colors: colorsConfiguration), vocalGuidance: vocalGuidance)
+        } else if clientId != nil && clientSecretId != nil {
+            self.sdk = CSLiveness(
+                configuration: CSLivenessConfig(
+                    clientId: clientId!,
+                    clientSecret: clientSecretId!,
+                    identifierId: identifierId, cpf: cpf, colors: colorsConfiguration), vocalGuidance: vocalGuidance)
         } else {
-            resultParam(FlutterError(code: "MissingParameters", message: "Missing clientId, clientSecretId or both", details: nil))
+            resultParam(FlutterError(code: "NoConstructorFound", message: "Unable to find viable constructor for SDK", details: nil))
+            
+            self.resetFlutterResult()
+            return
+        }
+        
+        
+        DispatchQueue.main.async {
+            if let viewController = UIApplication.shared.keyWindow?.rootViewController {
+                self.sdk?.delegate = self
+                self.sdk?.start(viewController: viewController, animated: true)
+            } else {
+                resultParam(FlutterError(code: "ViewControllerMissing", message: "Unable to find view controller", details: nil))
+                
+                self.resetFlutterResult()
+            }
         }
     }
-    
 }
+
 
 extension LivenessFlutterSdkPlugin: CSLivenessDelegate {
     public func liveness(didOpen: Bool) {

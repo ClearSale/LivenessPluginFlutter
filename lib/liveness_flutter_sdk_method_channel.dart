@@ -13,27 +13,31 @@ class MethodChannelLivenessFlutterSdk extends LivenessFlutterSdkPlatform {
 
   @override
   Future<CSLivenessResult> openCSLiveness(
-      String clientId,
-      String clientSecretId,
+      {String? accessToken,
+      String? transactionId,
+      String? clientId,
+      String? clientSecretId,
       String? identifierId,
       String? cpf,
       bool? vocalGuidance,
-      Color primaryColor,
-      Color secondaryColor,
-      Color titleColor,
-      Color paragraphColor) async {
+      Color? primaryColor,
+      Color? secondaryColor,
+      Color? titleColor,
+      Color? paragraphColor}) async {
     final Map<String, dynamic>? response =
         await methodChannel.invokeMapMethod('openCSLiveness', {
+      "accessToken": accessToken,
+      "transactionId": transactionId,
       "clientId": clientId,
       "clientSecretId": clientSecretId,
       "identifierId":
           identifierId != null && identifierId.isNotEmpty ? identifierId : null,
       "cpf": cpf != null && cpf.isNotEmpty ? cpf : null,
       "vocalGuidance": vocalGuidance == true,
-      "primaryColor": primaryColor.toHexString(enableAlpha: false),
-      "secondaryColor": secondaryColor.toHexString(enableAlpha: false),
-      "titleColor": titleColor.toHexString(enableAlpha: false),
-      "paragraphColor": paragraphColor.toHexString(enableAlpha: false)
+      "primaryColor": primaryColor?.toHexString(enableAlpha: false),
+      "secondaryColor": secondaryColor?.toHexString(enableAlpha: false),
+      "titleColor": titleColor?.toHexString(enableAlpha: false),
+      "paragraphColor": paragraphColor?.toHexString(enableAlpha: false)
     });
 
     if (response != null) {

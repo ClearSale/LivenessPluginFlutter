@@ -5,24 +5,28 @@ import 'liveness_flutter_sdk_platform_interface.dart';
 
 class LivenessFlutterSdk {
   Future<CSLivenessResult> openCSLiveness(
-      String clientId,
-      String clientSecretId,
+      {String? accessToken,
+      String? transactionId,
+      String? clientId,
+      String? clientSecretId,
       String? identifierId,
       String? cpf,
       bool? vocalGuidance,
-      Color primaryColor,
-      Color secondaryColor,
-      Color titleColor,
-      Color paragraphColor) {
+      Color? primaryColor,
+      Color? secondaryColor,
+      Color? titleColor,
+      Color? paragraphColor}) {
     return LivenessFlutterSdkPlatform.instance.openCSLiveness(
-        clientId,
-        clientSecretId,
-        identifierId,
-        cpf,
-        vocalGuidance,
-        primaryColor,
-        secondaryColor,
-        titleColor,
-        paragraphColor);
+        accessToken: accessToken,
+        transactionId: transactionId,
+        clientId: clientId,
+        clientSecretId: clientSecretId,
+        identifierId: identifierId,
+        cpf: cpf,
+        vocalGuidance: vocalGuidance,
+        primaryColor: primaryColor,
+        secondaryColor: secondaryColor,
+        titleColor: titleColor,
+        paragraphColor: paragraphColor);
   }
 }

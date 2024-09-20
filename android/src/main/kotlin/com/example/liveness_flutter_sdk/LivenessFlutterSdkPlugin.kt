@@ -92,32 +92,38 @@ class LivenessFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware
             val clientSecretId = call.argument<String>("clientSecretId")
             val identifierId = call.argument<String>("identifierId")
             val cpf = call.argument<String>("cpf")
+            val accessToken = call.argument<String>("accessToken")
+            val transactionId = call.argument<String>("transactionId")
             val vocalGuidance = call.argument<Boolean>("vocalGuidance")
             val primaryColor = call.argument<String>("primaryColor")
             val secondaryColor = call.argument<String>("secondaryColor")
             val titleColor = call.argument<String>("titleColor")
             val paragraphColor = call.argument<String>("paragraphColor")
 
-            // Now validate
-            if (clientId.isNullOrBlank()) throw Exception("clientId is required")
-            if (clientSecretId.isNullOrBlank()) throw Exception("clientSecretId is required")
-
-            val csLiveness = CSLiveness(
-                clientId, clientSecretId, identifierId, cpf, CSLivenessConfig(
-                    vocalGuidance = vocalGuidance ?: false, colors = CSLivenessConfigColors(
-                        primaryColor = if (!primaryColor.isNullOrBlank()) Color.parseColor(
-                            primaryColor
-                        ) else null,
-                        secondaryColor = if (!secondaryColor.isNullOrBlank()) Color.parseColor(
-                            secondaryColor
-                        ) else null,
-                        titleColor = if (!titleColor.isNullOrBlank()) Color.parseColor(titleColor) else null,
-                        paragraphColor = if (!paragraphColor.isNullOrBlank()) Color.parseColor(
-                            paragraphColor
-                        ) else null
-                    )
+            val csLivenessConfig = CSLivenessConfig(
+                vocalGuidance = vocalGuidance ?: false, colors = CSLivenessConfigColors(
+                    primaryColor = if (!primaryColor.isNullOrBlank()) Color.parseColor(
+                        primaryColor
+                    ) else null,
+                    secondaryColor = if (!secondaryColor.isNullOrBlank()) Color.parseColor(
+                        secondaryColor
+                    ) else null,
+                    titleColor = if (!titleColor.isNullOrBlank()) Color.parseColor(titleColor) else null,
+                    paragraphColor = if (!paragraphColor.isNullOrBlank()) Color.parseColor(
+                        paragraphColor
+                    ) else null
                 )
             )
+
+            lateinit var csLiveness : CSLiveness;
+
+            if (!accessToken.isNullOrBlank() && !transactionId.isNullOrBlank()) {
+                csLiveness = CSLiveness(transactionId, accessToken, csLivenessConfig)
+            } else if (!clientId.isNullOrBlank() && !clientSecretId.isNullOrBlank()) {
+                csLiveness = CSLiveness(clientId, clientSecretId, identifierId, cpf, csLivenessConfig)
+            } else {
+                throw Exception("transactionId and accessToken or clientId and clientSecretId are required")
+            }
 
             if (activity?.application != null) {
                 val intent = Intent(context, CSLivenessActivity::class.java)
