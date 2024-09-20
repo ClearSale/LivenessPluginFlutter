@@ -22,5 +22,7 @@ extension ColorExtension on Color {
           bool enableAlpha = true,
           bool toUpperCase = true}) =>
       _colorToHex(this,
-          includeHashSign: includeHashSign, enableAlpha: enableAlpha, toUpperCase: toUpperCase);
+          includeHashSign: includeHashSign,
+          enableAlpha: enableAlpha,
+          toUpperCase: toUpperCase);
 }
