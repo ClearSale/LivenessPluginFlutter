@@ -1,0 +1,86 @@
+trigger:
+  branches:
+    include:
+      - master
+
+pr: none
+
+variables:
+  - group: release-pipelines-library
+  - name: BUILD_DIR
+    value: $(Build.ArtifactStagingDirectory)/builds
+  - name: REPO
+    value: ClearSale/LivenessPluginFlutter
+
+stages:
+  - stage: release
+    variables:
+      - group: cs-kv-prd-core
+    jobs:
+      - deployment: release
+        pool:
+          name: AgentLinuxPrd
+        environment: FACETEC-PRD
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: |
+                    sudo apt update
+                    sudo apt install apt-transport-https
+                    sudo sh -c 'wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -'
+                    sudo sh -c 'wget -qO- https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list'
+                    sudo apt update
+                    sudo apt install dart
+                  displayName: 'Install Dart'
+
+                - script: |
+                    echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+                    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+                    sudo apt-get update
+                    sudo apt-get -y install google-cloud-sdk
+                  displayName: 'Install GCloud'
+
+                - script: |
+                    dart --version
+                    gcloud version
+                  displayName: 'Verify Dart and GCloud Installation'
+
+                - task: FlutterInstall@0
+                  displayName: "Install Flutter SDK"
+                  inputs:
+                    mode: 'auto'
+                    channel: 'stable'
+                    version: 'latest'
+
+                - task: FlutterCommand@0
+                  displayName: "Run Flutter diagnostics"
+                  inputs:
+                    projectDirectory: '.'
+                    arguments: 'doctor -v'
+
+                - task: DownloadSecureFile@1
+                  inputs:
+                    secureFile: 'GCloudKey.json'
+                  name: DownloadGCloudKey
+
+                - checkout: self
+                  persistCredentials: true
+                  displayName: "Checkout"
+
+                - script: |
+                    #!/bin/bash
+                    set -e
+
+                    BRANCH_NAME=$(echo $(Build.SourceBranch) | sed 's/refs\/heads\///')
+                    echo "source branch: $BRANCH_NAME"
+                    git fetch origin
+                    git checkout $BRANCH_NAME
+                  displayName: 'Checkout Branch'
+
+                - script: |
+                    echo The downloaded GCloudkey file is $(DownloadGCloudKey.secureFilePath)
+                    gcloud auth activate-service-account --key-file=$(DownloadGCloudKey.secureFilePath)
+                    gcloud auth print-identity-token --audiences=https://pub.dev | dart pub token add https://pub.dev
+                    flutter pub publish --force
+                  displayName: Publish to pub.dev
