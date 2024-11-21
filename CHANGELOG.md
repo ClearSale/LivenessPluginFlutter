@@ -1,6 +1,10 @@
+## 3.0.0
+
+* Only integration with PDT allowed. Old constructors has been removed.
+
 ## 2.0.0
 
-* Integration with PDT
+* Integration with PDT.
 
 ## 0.0.1
 
