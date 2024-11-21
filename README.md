@@ -102,7 +102,7 @@ Future<void> callCSLivenessSDK(
 2. Clone esse repositório e rode `flutter pub get`.
 3. Coloque suas credenciais no arquivo `clearsale.gradle.env` na raiz do projeto de exemplo e adicione também as credenciais no arquivo `example/ios/Podfile`.
 4. Inicie o app
-5. Ao pressionar o botão `Open CSLiveness` o SDK Liveness iniciará. Após completar o fluxo o aplicativo retorna o `documentType` e `sessionId`.
+5. Ao pressionar o botão `Open CSLiveness` o SDK Liveness iniciará. Após completar o fluxo o aplicativo retorna o resultado.
 
 ## Detalhes de privacidade
 
