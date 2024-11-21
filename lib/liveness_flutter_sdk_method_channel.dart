@@ -15,10 +15,6 @@ class MethodChannelLivenessFlutterSdk extends LivenessFlutterSdkPlatform {
   Future<CSLivenessResult> openCSLiveness(
       {String? accessToken,
       String? transactionId,
-      String? clientId,
-      String? clientSecretId,
-      String? identifierId,
-      String? cpf,
       bool? vocalGuidance,
       Color? primaryColor,
       Color? secondaryColor,
@@ -28,11 +24,6 @@ class MethodChannelLivenessFlutterSdk extends LivenessFlutterSdkPlatform {
         await methodChannel.invokeMapMethod('openCSLiveness', {
       "accessToken": accessToken,
       "transactionId": transactionId,
-      "clientId": clientId,
-      "clientSecretId": clientSecretId,
-      "identifierId":
-          identifierId != null && identifierId.isNotEmpty ? identifierId : null,
-      "cpf": cpf != null && cpf.isNotEmpty ? cpf : null,
       "vocalGuidance": vocalGuidance == true,
       "primaryColor": primaryColor?.toHexString(enableAlpha: false),
       "secondaryColor": secondaryColor?.toHexString(enableAlpha: false),

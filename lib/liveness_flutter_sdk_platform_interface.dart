@@ -29,10 +29,6 @@ abstract class LivenessFlutterSdkPlatform extends PlatformInterface {
   Future<CSLivenessResult> openCSLiveness(
       {String? accessToken,
       String? transactionId,
-      String? clientId,
-      String? clientSecretId,
-      String? identifierId,
-      String? cpf,
       bool? vocalGuidance,
       Color? primaryColor,
       Color? secondaryColor,

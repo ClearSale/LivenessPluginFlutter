@@ -88,10 +88,6 @@ class LivenessFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware
         try {
             flutterResult = result
 
-            val clientId = call.argument<String>("clientId")
-            val clientSecretId = call.argument<String>("clientSecretId")
-            val identifierId = call.argument<String>("identifierId")
-            val cpf = call.argument<String>("cpf")
             val accessToken = call.argument<String>("accessToken")
             val transactionId = call.argument<String>("transactionId")
             val vocalGuidance = call.argument<Boolean>("vocalGuidance")
@@ -119,10 +115,8 @@ class LivenessFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware
 
             if (!accessToken.isNullOrBlank() && !transactionId.isNullOrBlank()) {
                 csLiveness = CSLiveness(transactionId, accessToken, csLivenessConfig)
-            } else if (!clientId.isNullOrBlank() && !clientSecretId.isNullOrBlank()) {
-                csLiveness = CSLiveness(clientId, clientSecretId, identifierId, cpf, csLivenessConfig)
             } else {
-                throw Exception("transactionId and accessToken or clientId and clientSecretId are required")
+                throw Exception("transactionId and accessToken are required")
             }
 
             if (activity?.application != null) {
