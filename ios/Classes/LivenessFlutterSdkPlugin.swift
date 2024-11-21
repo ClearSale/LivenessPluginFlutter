@@ -46,10 +46,6 @@ public class LivenessFlutterSdkPlugin: NSObject, FlutterPlugin {
                 let sdkParams: NSDictionary = [
                     "accessToken": arguments["accessToken"] as? String,
                     "transactionId": arguments["transactionId"] as? String,
-                    "clientId": arguments["clientId"] as? String,
-                    "clientSecretId": arguments["clientSecretId"] as? String,
-                    "identifierId": arguments["identifierId"] as? String,
-                    "cpf": arguments["cpf"] as? String,
                     "vocalGuidance": arguments["vocalGuidance"] as! Bool,
                     "primaryColor": arguments["primaryColor"] as! String,
                     "secondaryColor": arguments["secondaryColor"] as! String,
@@ -76,13 +72,7 @@ public class LivenessFlutterSdkPlugin: NSObject, FlutterPlugin {
         
         let accessToken = sdkParams["accessToken"] as? String
         let transactionId = sdkParams["transactionId"] as? String
-        
-        let clientId = sdkParams["clientId"] as? String
-        let clientSecretId = sdkParams["clientSecretId"] as? String
-        let identifierId = sdkParams["identifierId"] as? String ?? ""
-        let cpf = sdkParams["cpf"] as? String ?? ""
-        
-        
+
         let vocalGuidance = sdkParams["vocalGuidance"] as? Bool ?? false
         
         // Colors configuration
@@ -98,12 +88,6 @@ public class LivenessFlutterSdkPlugin: NSObject, FlutterPlugin {
 
         if accessToken != nil && transactionId != nil {
             self.sdk = CSLiveness(configuration: CSLivenessConfig(accessToken: accessToken!, transactionId: transactionId!, colors: colorsConfiguration), vocalGuidance: vocalGuidance)
-        } else if clientId != nil && clientSecretId != nil {
-            self.sdk = CSLiveness(
-                configuration: CSLivenessConfig(
-                    clientId: clientId!,
-                    clientSecret: clientSecretId!,
-                    identifierId: identifierId, cpf: cpf, colors: colorsConfiguration), vocalGuidance: vocalGuidance)
         } else {
             resultParam(FlutterError(code: "NoConstructorFound", message: "Unable to find viable constructor for SDK", details: nil))
             

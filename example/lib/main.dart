@@ -41,10 +41,6 @@ class _MyAppState extends State<MyApp> {
   Future<void> callCSLivenessSDK(
       {String? accessToken,
       String? transactionId,
-      String? clientId,
-      String? clientSecretId,
-      String? identifierId,
-      String? cpf,
       bool? vocalGuidance = false,
       Color? primaryColor,
       Color? secondaryColor,
@@ -57,10 +53,6 @@ class _MyAppState extends State<MyApp> {
       var sdkResponse = await _livenessFlutterSdkPlugin.openCSLiveness(
           accessToken: accessToken,
           transactionId: transactionId,
-          clientId: clientId,
-          clientSecretId: clientSecretId,
-          identifierId: identifierId,
-          cpf: cpf,
           vocalGuidance: vocalGuidance,
           primaryColor: primaryColor,
           secondaryColor: secondaryColor,
