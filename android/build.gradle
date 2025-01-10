@@ -19,7 +19,7 @@ def setupEnvFile(searchParam) {
         if (key !== null && value !== null) {
             System.properties[key] = value
         } else {
-            throw new InvalidUserDataException("[CSDOCUMENTOSCOPY SDK] - Invalid value for clearsale.gradle.env. Received key: $key, value: $value")
+            throw new InvalidUserDataException("[CSLivenessFlutter SDK] - Invalid value for clearsale.gradle.env. Received key: $key, value: $value")
         }
     }
 
@@ -43,7 +43,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:7.3.0")
+        classpath("com.android.tools.build:gradle:8.1.0")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
     }
 }
