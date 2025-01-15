@@ -1,3 +1,7 @@
+## 3.0.1
+
+* Support Flutter versions above 3.22
+
 ## 3.0.0
 
 * Only integration with PDT allowed. Old constructors has been removed.
