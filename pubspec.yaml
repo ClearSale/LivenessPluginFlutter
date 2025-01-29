@@ -1,6 +1,6 @@
 name: liveness_flutter_sdk
 description: "ClearSale Liveness Flutter SDK"
-version: 2.0.0
+version: 3.0.1
 homepage: "https://devs.plataformadatatrust.clearsale.com.br/docs/sdk-flutter"
 
 environment:
