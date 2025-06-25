@@ -335,6 +335,7 @@ class _MyAppState extends State<MyApp> {
                               if (_formKey.currentState?.validate() == true) {
                                 _formKey.currentState!.save();
 
+                                var environment = usePrd ? LivenessEnvironments.prd : LivenessEnvironments.hml;
                                 await callCSLivenessSDK(
                                     accessToken: _formValues["accessToken"],
                                     transactionId: _formValues["transactionId"],
@@ -342,7 +343,8 @@ class _MyAppState extends State<MyApp> {
                                     primaryColor: primaryColor,
                                     secondaryColor: secondaryColor,
                                     titleColor: titleColor,
-                                    paragraphColor: paragraphColor);
+                                    paragraphColor: paragraphColor,
+                                    environments: environment);
                               }
                             },
                             child: const Text('Open CSLiveness'))
