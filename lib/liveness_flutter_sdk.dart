@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:liveness_flutter_sdk/liveness_flutter_sdk_data.dart';
+import 'package:liveness_flutter_sdk/liveness_flutter_sdk_environments.dart';
 
 import 'liveness_flutter_sdk_platform_interface.dart';
 
@@ -11,7 +12,9 @@ class LivenessFlutterSdk {
       Color? primaryColor,
       Color? secondaryColor,
       Color? titleColor,
-      Color? paragraphColor}) {
+      Color? paragraphColor,
+      LivenessEnvironments? environment,
+      }) {
     return LivenessFlutterSdkPlatform.instance.openCSLiveness(
         accessToken: accessToken,
         transactionId: transactionId,
@@ -19,6 +22,7 @@ class LivenessFlutterSdk {
         primaryColor: primaryColor,
         secondaryColor: secondaryColor,
         titleColor: titleColor,
-        paragraphColor: paragraphColor);
+        paragraphColor: paragraphColor,
+        environment: environment);
   }
 }
