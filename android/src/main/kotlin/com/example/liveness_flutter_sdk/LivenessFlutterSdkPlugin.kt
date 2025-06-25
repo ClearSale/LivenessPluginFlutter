@@ -8,6 +8,7 @@ import android.util.Log
 import com.clear.studio.csliveness.core.CSLiveness
 import com.clear.studio.csliveness.core.CSLivenessConfig
 import com.clear.studio.csliveness.core.CSLivenessConfigColors
+import com.clear.studio.csliveness.core.CSLivenessEnvironments
 import com.clear.studio.csliveness.core.CSLivenessResult
 import com.clear.studio.csliveness.view.CSLivenessActivity
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -95,7 +96,7 @@ class LivenessFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware
             val secondaryColor = call.argument<String>("secondaryColor")
             val titleColor = call.argument<String>("titleColor")
             val paragraphColor = call.argument<String>("paragraphColor")
-            val environment = call.argument<String>("environment")
+            val environmentStr = call.argument<String>("environment")
 
             val csLivenessConfig = CSLivenessConfig(
                 vocalGuidance = vocalGuidance ?: false, colors = CSLivenessConfigColors(
@@ -114,7 +115,11 @@ class LivenessFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware
 
             lateinit var csLiveness : CSLiveness;
 
-            if (!accessToken.isNullOrBlank() && !transactionId.isNullOrBlank() && !environment.isNullOrBlank()) {
+            if (!accessToken.isNullOrBlank() && !transactionId.isNullOrBlank() && !environmentStr.isNullOrBlank()) {
+                val environment = when (environmentStr) {
+                    "HML" -> CSLivenessEnvironments.HML
+                    else -> CSLivenessEnvironments.PRD
+                }
                 csLiveness = CSLiveness(transactionId, accessToken, environment, csLivenessConfig)
             } else {
                 throw Exception("transactionId and accessToken are required")
