@@ -2,6 +2,7 @@ import 'package:liveness_flutter_sdk/liveness_flutter_sdk_extend_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:liveness_flutter_sdk/liveness_flutter_sdk_data.dart';
+import 'package:liveness_flutter_sdk/liveness_flutter_sdk_environments.dart';
 
 import 'liveness_flutter_sdk_platform_interface.dart';
 
@@ -19,7 +20,8 @@ class MethodChannelLivenessFlutterSdk extends LivenessFlutterSdkPlatform {
       Color? primaryColor,
       Color? secondaryColor,
       Color? titleColor,
-      Color? paragraphColor}) async {
+      Color? paragraphColor,
+      LivenessEnvironments? environment}) async {
     final Map<String, dynamic>? response =
         await methodChannel.invokeMapMethod('openCSLiveness', {
       "accessToken": accessToken,
@@ -28,7 +30,8 @@ class MethodChannelLivenessFlutterSdk extends LivenessFlutterSdkPlatform {
       "primaryColor": primaryColor?.toHexString(enableAlpha: false),
       "secondaryColor": secondaryColor?.toHexString(enableAlpha: false),
       "titleColor": titleColor?.toHexString(enableAlpha: false),
-      "paragraphColor": paragraphColor?.toHexString(enableAlpha: false)
+      "paragraphColor": paragraphColor?.toHexString(enableAlpha: false),
+      "environment": environment,
     });
 
     if (response != null) {

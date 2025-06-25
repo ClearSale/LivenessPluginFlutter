@@ -5,8 +5,8 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:liveness_flutter_sdk/liveness_flutter_sdk.dart';
+import 'package:liveness_flutter_sdk/liveness_flutter_sdk_environments.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,6 +31,7 @@ class _MyAppState extends State<MyApp> {
   Color paragraphColor = const Color(0xFF353840);
 
   bool vocalGuidance = false;
+  bool usePrd = false;
 
   @override
   void initState() {
@@ -45,7 +46,8 @@ class _MyAppState extends State<MyApp> {
       Color? primaryColor,
       Color? secondaryColor,
       Color? titleColor,
-      Color? paragraphColor}) async {
+      Color? paragraphColor,
+      LivenessEnvironments? environments}) async {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     String result;
@@ -57,7 +59,8 @@ class _MyAppState extends State<MyApp> {
           primaryColor: primaryColor,
           secondaryColor: secondaryColor,
           titleColor: titleColor,
-          paragraphColor: paragraphColor);
+          paragraphColor: paragraphColor,
+          environment: environments);
 
       result = jsonEncode(sdkResponse);
     } on PlatformException catch (e) {
@@ -133,6 +136,18 @@ class _MyAppState extends State<MyApp> {
                           onChanged: (bool? newValue) {
                             setState(() {
                               vocalGuidance = newValue == true;
+                            });
+                          },
+                          controlAffinity: ListTileControlAffinity
+                              .leading, //  <-- leading Checkbox
+                        ),
+                        const SizedBox(height: 20),
+                        CheckboxListTile(
+                          title: const Text("Use PRD"),
+                          value: usePrd,
+                          onChanged: (bool? newValue) {
+                            setState(() {
+                              usePrd = newValue == true;
                             });
                           },
                           controlAffinity: ListTileControlAffinity

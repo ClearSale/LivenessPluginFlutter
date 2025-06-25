@@ -95,6 +95,7 @@ class LivenessFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware
             val secondaryColor = call.argument<String>("secondaryColor")
             val titleColor = call.argument<String>("titleColor")
             val paragraphColor = call.argument<String>("paragraphColor")
+            val environment = call.argument<String>("environment")
 
             val csLivenessConfig = CSLivenessConfig(
                 vocalGuidance = vocalGuidance ?: false, colors = CSLivenessConfigColors(
@@ -113,8 +114,8 @@ class LivenessFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware
 
             lateinit var csLiveness : CSLiveness;
 
-            if (!accessToken.isNullOrBlank() && !transactionId.isNullOrBlank()) {
-                csLiveness = CSLiveness(transactionId, accessToken, csLivenessConfig)
+            if (!accessToken.isNullOrBlank() && !transactionId.isNullOrBlank() && !environment.isNullOrBlank()) {
+                csLiveness = CSLiveness(transactionId, accessToken, environment, csLivenessConfig)
             } else {
                 throw Exception("transactionId and accessToken are required")
             }

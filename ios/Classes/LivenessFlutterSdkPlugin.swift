@@ -50,7 +50,8 @@ public class LivenessFlutterSdkPlugin: NSObject, FlutterPlugin {
                     "primaryColor": arguments["primaryColor"] as! String,
                     "secondaryColor": arguments["secondaryColor"] as! String,
                     "titleColor": arguments["titleColor"] as! String,
-                    "paragraphColor": arguments["paragraphColor"] as! String
+                    "paragraphColor": arguments["paragraphColor"] as! String,
+                    "environment": arguments["environment"] as! String
                 ];
                 
                 openCSLiveness(sdkParams: sdkParams, resultParam: result)
@@ -82,12 +83,13 @@ public class LivenessFlutterSdkPlugin: NSObject, FlutterPlugin {
         let paragraphColor = sdkParams["paragraphColor"] != nil ? UIColor(sdkParams["paragraphColor"] as! String) : nil;
         
         let colorsConfiguration = CSLivenessColorsConfig(primaryColor: primaryColor, secondaryColor: secondaryColor, titleColor: titleColor, paragraphColor: paragraphColor)
-        
-        
+
+        let environment = sdkParam["environment"] as? String
+
         self.flutterResult = resultParam
 
-        if accessToken != nil && transactionId != nil {
-            self.sdk = CSLiveness(configuration: CSLivenessConfig(accessToken: accessToken!, transactionId: transactionId!, colors: colorsConfiguration), vocalGuidance: vocalGuidance)
+        if accessToken != nil && transactionId != nil && environment != nil {
+            self.sdk = CSLiveness(configuration: CSLivenessConfig(accessToken: accessToken!, transactionId: transactionId!, colors: colorsConfiguration, environment: environment!), vocalGuidance: vocalGuidance)
         } else {
             resultParam(FlutterError(code: "NoConstructorFound", message: "Unable to find viable constructor for SDK", details: nil))
             
