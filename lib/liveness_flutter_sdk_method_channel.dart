@@ -31,7 +31,7 @@ class MethodChannelLivenessFlutterSdk extends LivenessFlutterSdkPlatform {
       "secondaryColor": secondaryColor?.toHexString(enableAlpha: false),
       "titleColor": titleColor?.toHexString(enableAlpha: false),
       "paragraphColor": paragraphColor?.toHexString(enableAlpha: false),
-      "environment": environment,
+      "environment": environment?.value,
     });
 
     if (response != null) {
