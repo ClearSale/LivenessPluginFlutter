@@ -84,13 +84,18 @@ public class LivenessFlutterSdkPlugin: NSObject, FlutterPlugin {
         
         let colorsConfiguration = CSLivenessColorsConfig(primaryColor: primaryColor, secondaryColor: secondaryColor, titleColor: titleColor, paragraphColor: paragraphColor)
 
-        let environmentStr = sdkParam["environment"] as? String
-
         self.flutterResult = resultParam
 
-        if accessToken != nil && transactionId != nil && environmentStr != nil {
-            let environment: CSLivenessEnvironments = environmentStr! == "HML" ? .HML : .PRD
-            self.sdk = CSLiveness(configuration: CSLivenessConfig(accessToken: accessToken!, transactionId: transactionId!, colors: colorsConfiguration, environment: environment!), vocalGuidance: vocalGuidance)
+        let environmentStr = sdkParams["environment"] as? String ?? ""
+        guard let environment = CSLivenessEnvironments(rawValue: environmentStr) else {
+            resultParam(FlutterError(code: "InvalidParams", message: "Invalid environment value", details: nil))
+
+            self.resetFlutterResult()
+            return
+        }
+
+        if accessToken != nil && transactionId != nil {
+            self.sdk = CSLiveness(configuration: CSLivenessConfig(accessToken: accessToken!, transactionId: transactionId!, colors: colorsConfiguration, environment: environment), vocalGuidance: vocalGuidance)
         } else {
             resultParam(FlutterError(code: "NoConstructorFound", message: "Unable to find viable constructor for SDK", details: nil))
             
