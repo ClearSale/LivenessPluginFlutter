@@ -1,3 +1,8 @@
+## 4.0.0
+
+* Unify HML and PRD versions from the native SDK - now you can pass
+the environment parameter to the SDK instance in the Dart code.
+
 ## 3.0.1
 
 * Support Flutter versions above 3.22
