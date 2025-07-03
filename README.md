@@ -71,7 +71,8 @@ Future<void> callCSLivenessSDK(
         primaryColor,
         secondaryColor,
         titleColor,
-        paragraphColor);
+        paragraphColor,
+        environment: LivenessEnvironments.hml);
 
     result = jsonEncode(sdkResponse);
   } on PlatformException catch (e) {
