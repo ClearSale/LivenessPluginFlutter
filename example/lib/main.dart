@@ -25,8 +25,8 @@ class _MyAppState extends State<MyApp> {
   final Map<String, dynamic> _formValues = {};
   String _result = "N/A";
 
-  Color primaryColor = const Color(0xFFFF4800);
-  Color secondaryColor = const Color(0xFFFF4800);
+  Color primaryColor = const Color(0xFF002DD1);
+  Color secondaryColor = const Color(0xFF002DD1);
   Color titleColor = const Color(0xFF283785);
   Color paragraphColor = const Color(0xFF353840);
 
