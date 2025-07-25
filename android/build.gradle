@@ -1,37 +1,3 @@
-def setupEnvFile(searchParam) {
-    if (searchParam !== null && System.properties[searchParam] !== null) {
-        return System.properties[searchParam]
-    }
-
-    if (System.properties['ENV_FILE_PATH'] == null) {
-        // First try searching on project root.
-        def projectFileEnv = new File("$rootProject.rootDir/../clearsale.gradle.env")
-        def projectFileEnvExists = projectFileEnv.exists()
-        if (projectFileEnvExists) {
-            System.properties['ENV_FILE_PATH'] = projectFileEnv.path
-        } else {
-            System.properties['ENV_FILE_PATH'] = System.env.DIRNAME ?: System.env.PWD + "/../clearsale.gradle.env"
-        }
-    }
-
-    file(System.properties['ENV_FILE_PATH']).readLines().each() {
-        def (key, value) = it.tokenize('=');
-        if (key !== null && value !== null) {
-            System.properties[key] = value
-        } else {
-            throw new InvalidUserDataException("[CSLivenessFlutter SDK] - Invalid value for clearsale.gradle.env. Received key: $key, value: $value")
-        }
-    }
-
-    if (searchParam !== null) {
-        return System.properties[searchParam]
-    }
-
-    return null
-}
-
-setupEnvFile()
-
 group = "com.example.liveness_flutter_sdk"
 version = "1.0-SNAPSHOT"
 
