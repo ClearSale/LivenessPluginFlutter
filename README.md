@@ -8,14 +8,6 @@ CSLiveness Flutter
 flutter pub add liveness_flutter_sdk
 ```
 
-#### Android
-Adicione um arquivo `clearsale.gradle.env` na raiz do seu projeto flutter.
-Esse arquivo deve conter as seguintes propriedades:
-
-```
-CS_LIVENESS_VERSION=LAST_VERSION // valor fornecido pela clear sale
-```
-
 ### iOS
 No arquivo `Podfile` de seu projeto adicione o seguinte código:
 
