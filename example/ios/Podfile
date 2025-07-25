@@ -4,6 +4,10 @@ platform :ios, '13.0'
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
+plugin 'cocoapods-azure-universal-packages', {
+    :organization => 'https://dev.azure.com/CS-PublicPackages/'
+}
+
 project 'Runner', {
   'Debug' => :debug,
   'Profile' => :release,
@@ -36,7 +40,7 @@ target 'Runner' do
     inherit! :search_paths
   end
 
-  pod 'CSLivenessSDK', :git => 'https://CS-Packages:YOUR_PAT_HERE@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK', :tag => 'VERSION_HERE'
+  pod "CSLivenessSDK", :http => 'https://dev.azure.com/CS-PublicPackages/SDKS/_apis/packaging/feeds/SDKS/upack/packages/cslivenesssdk-ios/versions/4.0.0'
 end
 
 post_install do |installer|

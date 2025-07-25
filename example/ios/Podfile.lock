@@ -1,16 +1,21 @@
 PODS:
+  - CSLivenessSDK (4.0.0)
   - Flutter (1.0.0)
   - integration_test (0.0.1):
     - Flutter
-  - liveness_flutter_sdk (0.0.1):
+  - liveness_flutter_sdk (4.0.0):
+    - CSLivenessSDK
     - Flutter
 
 DEPENDENCIES:
+  - "CSLivenessSDK (from `{:http=>\"https://dev.azure.com/CS-PublicPackages/SDKS/_apis/packaging/feeds/SDKS/upack/packages/cslivenesssdk-ios/versions/4.0.0\"}`)"
   - Flutter (from `Flutter`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - liveness_flutter_sdk (from `.symlinks/plugins/liveness_flutter_sdk/ios`)
 
 EXTERNAL SOURCES:
+  CSLivenessSDK:
+    :http: https://dev.azure.com/CS-PublicPackages/SDKS/_apis/packaging/feeds/SDKS/upack/packages/cslivenesssdk-ios/versions/4.0.0
   Flutter:
     :path: Flutter
   integration_test:
@@ -18,11 +23,16 @@ EXTERNAL SOURCES:
   liveness_flutter_sdk:
     :path: ".symlinks/plugins/liveness_flutter_sdk/ios"
 
+CHECKOUT OPTIONS:
+  CSLivenessSDK:
+    :http: https://dev.azure.com/CS-PublicPackages/SDKS/_apis/packaging/feeds/SDKS/upack/packages/cslivenesssdk-ios/versions/4.0.0
+
 SPEC CHECKSUMS:
+  CSLivenessSDK: 629fc7d9b810bbfbcce6547436c594975023e637
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  integration_test: ce0a3ffa1de96d1a89ca0ac26fca7ea18a749ef4
-  liveness_flutter_sdk: 9df67210342ea24bca9a3f83dbcebfe17a0a9298
+  integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
+  liveness_flutter_sdk: 4ec126bf8433c83214f74a4f11e3ad1d02b93b02
 
-PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
+PODFILE CHECKSUM: 2794c665b445e556069e068f9d2d4cc04f4918f4
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2
