@@ -13,10 +13,6 @@ Adicione um arquivo `clearsale.gradle.env` na raiz do seu projeto flutter.
 Esse arquivo deve conter as seguintes propriedades:
 
 ```
-CS_LIVENESS_TEC_ARTIFACTS_FEED_URL=ARTIFACTS_FEED_URL // valor fornecido pela clear sale
-CS_LIVENESS_TEC_ARTIFACTS_FEED_NAME=ARTIFACTS_FEED_NAME // valor fornecido pela clear sale
-CS_LIVENESS_TEC_USER=USERNAME // valor fornecido pela clear sale
-CS_LIVENESS_TEC_PASS=ACCESSTOKEN // valor fornecido pela clear sale
 CS_LIVENESS_VERSION=LAST_VERSION // valor fornecido pela clear sale
 ```
 

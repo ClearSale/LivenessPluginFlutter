@@ -53,15 +53,7 @@ rootProject.allprojects {
         google()
         mavenCentral()
         maven {
-            url  System.properties['CS_LIVENESS_TEC_ARTIFACTS_FEED_URL']
-            name  System.properties['CS_LIVENESS_TEC_ARTIFACTS_FEED_NAME']
-            credentials {
-                username System.properties['CS_LIVENESS_TEC_USER']
-                password  System.properties['CS_LIVENESS_TEC_PASS']
-            }
-            authentication {
-                basic(BasicAuthentication)
-            }
+            url "https://pkgs.dev.azure.com/CS-PublicPackages/SDKS/_packaging/SDKS/maven/v1"
         }
     }
 }
