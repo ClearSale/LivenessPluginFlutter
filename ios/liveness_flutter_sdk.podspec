@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'liveness_flutter_sdk'
-  s.version          = '4.0.0'
+  s.version          = '4.0.1'
   s.summary          = 'ClearSale CSLiveness Flutter SDK'
   s.description      = <<-DESC
 ClearSale Liveness Flutter SDK

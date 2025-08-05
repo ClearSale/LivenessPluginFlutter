@@ -40,7 +40,7 @@ target 'Runner' do
     inherit! :search_paths
   end
 
-  pod "CSLivenessSDK", :http => 'https://dev.azure.com/CS-PublicPackages/SDKS/_apis/packaging/feeds/SDKS/upack/packages/cslivenesssdk-ios/versions/4.0.0'
+  pod "CSLivenessSDK", :http => 'https://dev.azure.com/CS-PublicPackages/SDKS/_apis/packaging/feeds/SDKS/upack/packages/cslivenesssdk-ios/versions/4.0.1'
 end
 
 post_install do |installer|

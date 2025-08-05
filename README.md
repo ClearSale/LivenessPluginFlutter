@@ -8,17 +8,39 @@ CSLiveness Flutter
 flutter pub add liveness_flutter_sdk
 ```
 
-### iOS
-No arquivo `Podfile` de seu projeto adicione o seguinte código:
+Então, adicione nosso repositório na sua lista de repositórios (no seu arquivo `build.gradle.kts` ou `build.gradle`) no seu projeto `android` nativo:
 
+```kotlin
+allprojects {
+    repositories {
+        ...
+        maven {
+          url = uri("https://pkgs.dev.azure.com/CS-PublicPackages/SDKS/_packaging/SDKS/maven/v1")
+        }
+    }
+}
 ```
-platform :ios, '12.0'
 
-use_frameworks!
+Para `iOS`, primeiro instale o plugin [cocoapods-azure-universal-packages](https://github.com/microsoft/cocoapods-azure-universal-packages).
 
-target 'NOME_DO_SEU_PROJETO' do
-  pod 'CSLivenessSDK', :git => 'https://CS-Packages:YOUR_PAT_HERE@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK', :tag => 'VERSION_HERE'
-end
+Após isso, certifique-se de logar no azure cli com az devops login usando o `PAT` que foi enviado para você por e-mail.
+
+```shell
+az devops login --organization https://dev.azure.com/CS-PublicPackages
+```
+
+Feito isso, adicione nosso repositório no seu Podfile:
+
+```ruby
+plugin 'cocoapods-azure-universal-packages', {
+    :organization => 'https://dev.azure.com/CS-PublicPackages/'
+}
+```
+
+Então, adicione o `SDK` como sua dependência no `Podfile`:
+
+```ruby
+  pod "CSLivenessSDK", :http => 'https://dev.azure.com/CS-PublicPackages/SDKS/_apis/packaging/feeds/SDKS/upack/packages/cslivenesssdk-ios/versions/4.0.1'
 ```
 
 ## Instruções de uso
