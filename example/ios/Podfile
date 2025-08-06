@@ -36,7 +36,7 @@ target 'Runner' do
     inherit! :search_paths
   end
 
-  pod 'CSLivenessSDK', :git => 'https://CS-Packages:YOUR_PAT_HERE@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK', :tag => 'VERSION_HERE'
+  pod 'CSLivenessSDK', :git => 'https://CS-Packages:YOUR_PAT_HERE@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK', :tag => '4.0.1'
 end
 
 post_install do |installer|
