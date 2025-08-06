@@ -8,29 +8,23 @@ CSLiveness Flutter
 flutter pub add liveness_flutter_sdk
 ```
 
-#### Android
-Adicione um arquivo `clearsale.gradle.env` na raiz do seu projeto flutter.
-Esse arquivo deve conter as seguintes propriedades:
+Então, adicione nosso repositório na sua lista de repositórios (no seu arquivo `build.gradle.kts` ou `build.gradle`) no seu projeto `android` nativo:
 
+```kotlin
+allprojects {
+    repositories {
+        ...
+        maven {
+          url = uri("https://pkgs.dev.azure.com/CS-PublicPackages/SDKS/_packaging/SDKS/maven/v1")
+        }
+    }
+}
 ```
-CS_LIVENESS_TEC_ARTIFACTS_FEED_URL=ARTIFACTS_FEED_URL // valor fornecido pela clear sale
-CS_LIVENESS_TEC_ARTIFACTS_FEED_NAME=ARTIFACTS_FEED_NAME // valor fornecido pela clear sale
-CS_LIVENESS_TEC_USER=USERNAME // valor fornecido pela clear sale
-CS_LIVENESS_TEC_PASS=ACCESSTOKEN // valor fornecido pela clear sale
-CS_LIVENESS_VERSION=LAST_VERSION // valor fornecido pela clear sale
-```
 
-### iOS
-No arquivo `Podfile` de seu projeto adicione o seguinte código:
+Para `iOS`, adicione o `SDK` como sua dependência no `Podfile`:
 
-```
-platform :ios, '12.0'
-
-use_frameworks!
-
-target 'NOME_DO_SEU_PROJETO' do
-  pod 'CSLivenessSDK', :git => 'https://CS-Packages:YOUR_PAT_HERE@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK', :tag => 'VERSION_HERE'
-end
+```ruby
+  pod 'CSLivenessSDK', :git => 'https://CS-Packages:YOUR_PAT_HERE@dev.azure.com/CS-Package/ID-Lab-PackagesSDK/_git/CSLivenessSDK', :tag => '4.0.1'
 ```
 
 ## Instruções de uso

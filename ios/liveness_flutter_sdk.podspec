@@ -4,8 +4,8 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'liveness_flutter_sdk'
-  s.version          = '2.0.0'
-  s.summary          = 'CSLiveness Flutter SDK'
+  s.version          = '4.0.1'
+  s.summary          = 'ClearSale CSLiveness Flutter SDK'
   s.description      = <<-DESC
 ClearSale Liveness Flutter SDK
                        DESC
@@ -25,6 +25,5 @@ ClearSale Liveness Flutter SDK
       "NSCameraUsageDescription" => "This app requires access to the camera."
   }
 
-  s.static_framework = true
   s.dependency 'CSLivenessSDK'
 end
